@@ -1,0 +1,66 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sample Point 1",
+        "type": "landmark",
+        "color": "#ff6b6b"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-74.0060, 40.7128]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sample Point 2",
+        "type": "building",
+        "color": "#4ecdc4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-73.9851, 40.7589]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sample Route",
+        "type": "path",
+        "color": "#45b7d1",
+        "weight": 3
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-74.0060, 40.7128],
+          [-73.9851, 40.7589],
+          [-73.9441, 40.8176]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sample Area",
+        "type": "zone",
+        "fillColor": "rgba(255, 107, 107, 0.3)",
+        "color": "#ff6b6b",
+        "weight": 2
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-74.020, 40.710],
+          [-73.990, 40.710],
+          [-73.990, 40.730],
+          [-74.020, 40.730],
+          [-74.020, 40.710]
+        ]]
+      }
+    }
+  ]
+}

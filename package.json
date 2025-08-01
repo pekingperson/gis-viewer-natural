@@ -1,0 +1,47 @@
+{
+  "name": "gis-viewer",
+  "version": "1.0.0",
+  "description": "Interactive web-based GIS viewer for map images with coordinate system support",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx live-server --port=3000 --open=demo.html",
+    "build": "echo 'No build process needed - static files ready for deployment'",
+    "test": "echo 'Open demo.html in a browser to test functionality'"
+  },
+  "keywords": [
+    "gis",
+    "mapping",
+    "geospatial",
+    "coordinates",
+    "canvas",
+    "javascript",
+    "geojson",
+    "web-gis",
+    "cartography",
+    "visualization"
+  ],
+  "author": "GitHub Copilot",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/user/gis-viewer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/user/gis-viewer/issues"
+  },
+  "homepage": "https://github.com/user/gis-viewer#readme",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "serve": "^14.2.1"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "> 1%",
+    "not dead"
+  ]
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIS Viewer - Interactive Map Application</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>GIS Viewer</h1>
+            <p>Interactive Map Viewer with Coordinate System Support</p>
+        </header>
+
+        <!-- Main Controls Panel -->
+        <div class="controls-panel">
+            <!-- File Upload Section -->
+            <div class="control-group">
+                <label for="map-upload" class="upload-btn">
+                    📁 Load Map Image
+                    <input type="file" id="map-upload" accept=".jpg,.jpeg,.png" style="display: none;">
+                </label>
+                <span id="file-name" class="file-name"></span>
+            </div>
+
+            <!-- Tool Selection -->
+            <div class="control-group">
+                <button id="pan-tool" class="tool-btn active">🤚 Pan</button>
+                <button id="calibrate-tool" class="tool-btn">📍 Calibrate</button>
+                <button id="annotate-tool" class="tool-btn">📌 Annotate</button>
+                <button id="measure-tool" class="tool-btn">📏 Measure</button>
+            </div>
+
+            <!-- Import/Export Section -->
+            <div class="control-group">
+                <label for="geojson-upload" class="upload-btn secondary">
+                    🗺️ Load GeoJSON
+                    <input type="file" id="geojson-upload" accept=".json,.geojson" style="display: none;">
+                </label>
+                <button id="export-data" class="btn secondary">💾 Export Data</button>
+            </div>
+
+            <!-- View Options -->
+            <div class="control-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="grid-toggle">
+                    <span class="checkmark"></span>
+                    Show Grid
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="annotations-toggle" checked>
+                    <span class="checkmark"></span>
+                    Show Annotations
+                </label>
+            </div>
+
+            <!-- Data Management -->
+            <div class="control-group">
+                <button id="clear-data" class="btn danger">🗑️ Clear All</button>
+                <button id="reset-calibration" class="btn warning">↻ Reset Calibration</button>
+            </div>
+        </div>
+
+        <!-- Map Container -->
+        <div class="map-container">
+            <canvas id="map-canvas"></canvas>
+            <div id="coordinate-display" class="coordinate-display">
+                Coordinates: <span id="coord-text">Move mouse over map</span>
+            </div>
+            <div id="tooltip" class="tooltip"></div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span id="status-text">Ready - Please load a map image to begin</span>
+            <span id="calibration-status" class="calibration-status">Not Calibrated</span>
+        </div>
+
+        <!-- Calibration Modal -->
+        <div id="calibration-modal" class="modal">
+            <div class="modal-content">
+                <h3>Set Reference Point</h3>
+                <p>Enter the latitude and longitude for the selected point:</p>
+                <div class="input-group">
+                    <label for="ref-lat">Latitude:</label>
+                    <input type="number" id="ref-lat" step="any" placeholder="e.g., 40.7128">
+                </div>
+                <div class="input-group">
+                    <label for="ref-lng">Longitude:</label>
+                    <input type="number" id="ref-lng" step="any" placeholder="e.g., -74.0060">
+                </div>
+                <div class="modal-buttons">
+                    <button id="confirm-reference" class="btn primary">Confirm</button>
+                    <button id="cancel-reference" class="btn secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Annotation Modal -->
+        <div id="annotation-modal" class="modal">
+            <div class="modal-content">
+                <h3>Add Annotation</h3>
+                <div class="input-group">
+                    <label for="annotation-label">Label:</label>
+                    <input type="text" id="annotation-label" placeholder="Enter label">
+                </div>
+                <div class="input-group">
+                    <label for="annotation-desc">Description (optional):</label>
+                    <textarea id="annotation-desc" placeholder="Enter description"></textarea>
+                </div>
+                <div class="modal-buttons">
+                    <button id="confirm-annotation" class="btn primary">Add Annotation</button>
+                    <button id="cancel-annotation" class="btn secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Section -->
+        <div class="help-section">
+            <details>
+                <summary>📚 How to Use</summary>
+                <div class="help-content">
+                    <h4>Getting Started:</h4>
+                    <ol>
+                        <li><strong>Load Map:</strong> Click "Load Map Image" to upload a JPEG or PNG map file</li>
+                        <li><strong>Calibrate:</strong> Click "Calibrate" tool and set at least 2 reference points with known coordinates</li>
+                        <li><strong>Navigate:</strong> Use mouse wheel to zoom, drag to pan</li>
+                    </ol>
+                    
+                    <h4>Tools:</h4>
+                    <ul>
+                        <li><strong>Pan:</strong> Default mode for navigation</li>
+                        <li><strong>Calibrate:</strong> Set reference points for coordinate mapping</li>
+                        <li><strong>Annotate:</strong> Add labeled points to the map</li>
+                        <li><strong>Measure:</strong> Click two points to measure distance</li>
+                    </ul>
+                    
+                    <h4>Features:</h4>
+                    <ul>
+                        <li>Import GeoJSON files for overlays</li>
+                        <li>Toggle coordinate grid display</li>
+                        <li>Export annotations and data as JSON</li>
+                        <li>Persistent storage (data saved automatically)</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <script src="gis-viewer.js"></script>
+</body>
+</html>
