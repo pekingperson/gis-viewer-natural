@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # GIS Viewer - Interactive Web-Based Map Application
 
 A comprehensive web-based GIS (Geographic Information System) viewer that allows users to load map images, calibrate coordinate systems, add annotations, measure distances, and overlay GeoJSON data. Built with vanilla JavaScript and HTML5 Canvas for maximum compatibility and performance.
