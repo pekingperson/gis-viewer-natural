@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GIS Viewer - Interactive Map Application</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Interactive web-based GIS viewer with coordinate system support">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="GIS Viewer">
+    <meta name="msapplication-TileColor" content="#667eea">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16x16.png">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+    
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -150,5 +167,69 @@
     </div>
 
     <script src="gis-viewer.js"></script>
+    
+    <!-- PWA Installation and Service Worker -->
+    <script>
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then((registration) => {
+                        console.log('GIS Viewer: SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('GIS Viewer: SW registration failed: ', registrationError);
+                    });
+            });
+        }
+
+        // PWA Install Prompt
+        let deferredPrompt;
+        const installButton = document.createElement('button');
+        installButton.textContent = '📱 Install App';
+        installButton.className = 'btn primary';
+        installButton.style.display = 'none';
+        installButton.id = 'install-button';
+
+        // Add install button to controls panel
+        window.addEventListener('DOMContentLoaded', () => {
+            const controlsPanel = document.querySelector('.controls-panel');
+            const lastControlGroup = controlsPanel.lastElementChild;
+            lastControlGroup.appendChild(installButton);
+        });
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent Chrome 67 and earlier from automatically showing the prompt
+            e.preventDefault();
+            // Stash the event so it can be triggered later
+            deferredPrompt = e;
+            // Show install button
+            installButton.style.display = 'inline-block';
+        });
+
+        installButton.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                // Show the install prompt
+                deferredPrompt.prompt();
+                // Wait for the user to respond to the prompt
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`User response to the install prompt: ${outcome}`);
+                // Clear the deferredPrompt variable
+                deferredPrompt = null;
+                // Hide install button
+                installButton.style.display = 'none';
+            }
+        });
+
+        // Handle app installation
+        window.addEventListener('appinstalled', () => {
+            console.log('GIS Viewer: PWA was installed');
+            installButton.style.display = 'none';
+            // Update status
+            if (window.gisViewer) {
+                window.gisViewer.updateStatus('App installed successfully!');
+            }
+        });
+    </script>
 </body>
 </html>

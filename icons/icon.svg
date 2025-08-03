@@ -1,0 +1,42 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#667eea"/>
+  
+  <!-- Map grid -->
+  <g stroke="#ffffff" stroke-width="2" opacity="0.3">
+    <line x1="128" y1="0" x2="128" y2="512"/>
+    <line x1="256" y1="0" x2="256" y2="512"/>
+    <line x1="384" y1="0" x2="384" y2="512"/>
+    <line x1="0" y1="128" x2="512" y2="128"/>
+    <line x1="0" y1="256" x2="512" y2="256"/>
+    <line x1="0" y1="384" x2="512" y2="384"/>
+  </g>
+  
+  <!-- Map outline -->
+  <rect x="64" y="96" width="384" height="320" fill="none" stroke="#ffffff" stroke-width="4" rx="8"/>
+  
+  <!-- Location pin -->
+  <g fill="#ff4757">
+    <circle cx="200" cy="220" r="24"/>
+    <path d="M200 196 C188 196 178 206 178 218 C178 230 200 250 200 250 S222 230 222 218 C222 206 212 196 200 196 Z"/>
+  </g>
+  
+  <!-- Coordinates symbol -->
+  <g fill="#ffffff" font-family="Arial, sans-serif" font-size="16" font-weight="bold">
+    <text x="300" y="200">Lat/Lng</text>
+  </g>
+  
+  <!-- Compass -->
+  <g fill="#ffffff" stroke="#ffffff" stroke-width="2">
+    <circle cx="380" cy="160" r="32" fill="none"/>
+    <path d="M380 140 L388 160 L380 180 L372 160 Z"/>
+    <text x="375" y="148" font-family="Arial" font-size="12" font-weight="bold">N</text>
+  </g>
+  
+  <!-- Measurement line -->
+  <g stroke="#ffa502" stroke-width="3" stroke-dasharray="5,5">
+    <line x1="280" y1="280" x2="360" y2="320"/>
+    <circle cx="280" cy="280" r="4" fill="#ffa502"/>
+    <circle cx="360" cy="320" r="4" fill="#ffa502"/>
+  </g>
+</svg>

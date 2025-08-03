@@ -2,12 +2,17 @@
   "name": "gis-viewer",
   "version": "1.0.0",
   "description": "Interactive web-based GIS viewer for map images with coordinate system support",
-  "main": "index.html",
+  "main": "main.js",
   "scripts": {
     "start": "npx serve .",
     "dev": "npx live-server --port=3000 --open=demo.html",
+    "electron": "electron .",
+    "electron-dev": "nodemon --exec electron .",
     "build": "echo 'No build process needed - static files ready for deployment'",
-    "test": "echo 'Open demo.html in a browser to test functionality'"
+    "build-electron": "electron-builder",
+    "build-electron-all": "electron-builder --mac --win --linux",
+    "test": "echo 'Open demo.html in a browser to test functionality'",
+    "pwa-install": "echo 'Open index.html in a browser and click Install App button'"
   },
   "keywords": [
     "gis",
@@ -19,22 +24,30 @@
     "geojson",
     "web-gis",
     "cartography",
-    "visualization"
+    "visualization",
+    "pwa",
+    "electron",
+    "desktop-app",
+    "mobile-app"
   ],
   "author": "GitHub Copilot",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/user/gis-viewer.git"
+    "url": "https://github.com/haijunsu-osu/testrepo.git"
   },
   "bugs": {
-    "url": "https://github.com/user/gis-viewer/issues"
+    "url": "https://github.com/haijunsu-osu/testrepo/issues"
   },
-  "homepage": "https://github.com/user/gis-viewer#readme",
+  "homepage": "https://github.com/haijunsu-osu/testrepo#readme",
   "devDependencies": {
     "live-server": "^1.2.2",
-    "serve": "^14.2.1"
+    "serve": "^14.2.1",
+    "electron": "^22.0.0",
+    "electron-builder": "^24.0.0",
+    "nodemon": "^2.0.20"
   },
+  "dependencies": {},
   "engines": {
     "node": ">=14.0.0",
     "npm": ">=6.0.0"
@@ -43,5 +56,36 @@
     "last 2 versions",
     "> 1%",
     "not dead"
-  ]
+  ],
+  "build": {
+    "appId": "com.gisviewer.app",
+    "productName": "GIS Viewer",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!node_modules",
+      "!dist",
+      "!.git",
+      "!GITHUB_UPLOAD_INSTRUCTIONS.md"
+    ],
+    "mac": {
+      "category": "public.app-category.utilities",
+      "icon": "icons/icon.png"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "icons/icon.png"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "icons/icon.png",
+      "category": "Utility"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
 }
