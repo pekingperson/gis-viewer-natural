@@ -50,6 +50,9 @@ class GISViewer {
         // Storage key for persistence
         this.storageKey = 'gis-viewer-data';
         
+        // Historical data importer
+        this.historicalImporter = new HistoricalMapImporter(this);
+        
         this.init();
     }
     
@@ -95,6 +98,7 @@ class GISViewer {
         // File uploads
         document.getElementById('map-upload').addEventListener('change', (e) => this.handleMapUpload(e));
         document.getElementById('geojson-upload').addEventListener('change', (e) => this.handleGeoJSONUpload(e));
+        document.getElementById('import-historical').addEventListener('click', () => this.showHistoricalImportModal());
         
         // Tool selection
         document.getElementById('pan-tool').addEventListener('click', () => this.setTool('pan'));
@@ -146,6 +150,10 @@ class GISViewer {
         // Annotation modal
         document.getElementById('confirm-annotation').addEventListener('click', () => this.confirmAnnotation());
         document.getElementById('cancel-annotation').addEventListener('click', () => this.cancelAnnotation());
+        
+        // Historical import modal
+        document.getElementById('confirm-historical').addEventListener('click', () => this.confirmHistoricalImport());
+        document.getElementById('cancel-historical').addEventListener('click', () => this.cancelHistoricalImport());
         
         // Close modals on background click
         document.querySelectorAll('.modal').forEach(modal => {
@@ -799,6 +807,28 @@ class GISViewer {
                     break;
                 }
             }
+            
+            // Check for nearby GeoJSON features (including historical data)
+            if (!content && this.geoJsonData && this.geoJsonData.features) {
+                for (const feature of this.geoJsonData.features) {
+                    if (feature.geometry.type === 'Point') {
+                        const [lng, lat] = feature.geometry.coordinates;
+                        const pixel = this.geoToPixel(lat, lng);
+                        if (pixel) {
+                            const screenPos = this.mapToScreen(pixel.x, pixel.y);
+                            const distance = Math.sqrt(Math.pow(screenPos.x - x, 2) + Math.pow(screenPos.y - y, 2));
+                            
+                            // Larger hit area for population markers
+                            const hitRadius = feature.properties?.category === 'jewish-population' ? 25 : 15;
+                            
+                            if (distance < hitRadius) {
+                                content = this.formatFeatureTooltip(feature);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
         }
         
         if (content) {
@@ -809,6 +839,69 @@ class GISViewer {
         } else {
             tooltip.style.display = 'none';
         }
+    }
+    
+    /**
+     * Format tooltip content for GeoJSON features
+     */
+    formatFeatureTooltip(feature) {
+        const props = feature.properties || {};
+        let content = '';
+        
+        if (props.category === 'jewish-population') {
+            // Special formatting for Jewish population data
+            content = `<strong>${props.name || 'Unknown Location'}</strong>`;
+            
+            if (props.country) {
+                content += `<br><em>${props.country}</em>`;
+            }
+            
+            if (props.population_1900 || props.population_1930) {
+                content += '<br><br><strong>Jewish Population:</strong>';
+                
+                if (props.population_1900) {
+                    content += `<br>1900: ${props.population_1900.toLocaleString()}`;
+                }
+                
+                if (props.population_1930) {
+                    content += `<br>1930: ${props.population_1930.toLocaleString()}`;
+                }
+                
+                // Calculate change if both years available
+                if (props.population_1900 && props.population_1930) {
+                    const change = props.population_1930 - props.population_1900;
+                    const percentChange = ((change / props.population_1900) * 100).toFixed(1);
+                    const arrow = change > 0 ? '↗' : change < 0 ? '↘' : '→';
+                    content += `<br>Change: ${arrow} ${change > 0 ? '+' : ''}${change.toLocaleString()} (${percentChange}%)`;
+                }
+            }
+            
+            if (props.historical) {
+                content += '<br><br><em>Historical Data (1900-1930)</em>';
+            }
+            
+        } else {
+            // Standard feature formatting
+            content = `<strong>${props.name || props.id || 'Feature'}</strong>`;
+            
+            // Add other properties
+            Object.keys(props).forEach(key => {
+                if (key !== 'name' && key !== 'id' && key !== 'imported' && key !== 'importDate') {
+                    const value = props[key];
+                    if (value !== null && value !== undefined && value !== '') {
+                        content += `<br>${key}: ${value}`;
+                    }
+                }
+            });
+        }
+        
+        // Add coordinates
+        if (feature.geometry.type === 'Point') {
+            const [lng, lat] = feature.geometry.coordinates;
+            content += `<br><br><small>Lat: ${lat.toFixed(4)}, Lng: ${lng.toFixed(4)}</small>`;
+        }
+        
+        return content;
     }
     
     /**
@@ -1003,10 +1096,69 @@ class GISViewer {
         
         const screen = this.mapToScreen(pixel.x, pixel.y);
         
-        this.ctx.fillStyle = properties?.color || '#ff6b6b';
+        // Special styling for historical population data
+        if (properties?.category === 'jewish-population') {
+            this.drawPopulationMarker(screen, properties);
+        } else {
+            // Standard point
+            this.ctx.fillStyle = properties?.color || '#ff6b6b';
+            this.ctx.beginPath();
+            this.ctx.arc(screen.x, screen.y, 5, 0, 2 * Math.PI);
+            this.ctx.fill();
+        }
+    }
+    
+    /**
+     * Draw population marker with special styling
+     */
+    drawPopulationMarker(screen, properties) {
+        const { x, y } = screen;
+        const pop1900 = properties.population_1900 || 0;
+        const pop1930 = properties.population_1930 || 0;
+        const maxPop = Math.max(pop1900, pop1930);
+        
+        // Scale marker size based on population
+        const baseSize = 8;
+        const maxSize = 25;
+        const size = Math.min(maxSize, baseSize + (maxPop / 50000) * 10);
+        
+        // Draw outer ring (1930 population)
+        this.ctx.fillStyle = '#8e24aa';
+        this.ctx.strokeStyle = '#ffffff';
+        this.ctx.lineWidth = 2;
         this.ctx.beginPath();
-        this.ctx.arc(screen.x, screen.y, 5, 0, 2 * Math.PI);
+        this.ctx.arc(x, y, size, 0, 2 * Math.PI);
         this.ctx.fill();
+        this.ctx.stroke();
+        
+        // Draw inner ring (1900 population) if different
+        if (pop1900 > 0 && pop1900 !== pop1930) {
+            const innerSize = Math.max(3, (pop1900 / maxPop) * size * 0.7);
+            this.ctx.fillStyle = '#ab47bc';
+            this.ctx.beginPath();
+            this.ctx.arc(x, y, innerSize, 0, 2 * Math.PI);
+            this.ctx.fill();
+        }
+        
+        // Draw city name
+        if (properties.name) {
+            this.ctx.fillStyle = '#2f3542';
+            this.ctx.font = 'bold 11px Arial';
+            this.ctx.textAlign = 'center';
+            this.ctx.fillText(properties.name, x, y - size - 8);
+            
+            // Draw population numbers if space allows
+            if (size > 12) {
+                this.ctx.font = '9px Arial';
+                this.ctx.fillStyle = '#666';
+                if (pop1900 && pop1930) {
+                    this.ctx.fillText(`${(pop1930/1000).toFixed(0)}k`, x, y + 3);
+                    this.ctx.fillText(`(${(pop1900/1000).toFixed(0)}k)`, x, y + 14);
+                } else if (pop1930) {
+                    this.ctx.fillText(`${(pop1930/1000).toFixed(0)}k`, x, y + 3);
+                }
+            }
+        }
     }
     
     /**
@@ -1241,6 +1393,170 @@ class GISViewer {
         this.updateCalibrationStatus();
     }
     
+    /**
+     * Show historical import modal
+     */
+    showHistoricalImportModal() {
+        this.showModal('historical-modal');
+    }
+    
+    /**
+     * Confirm historical import
+     */
+    async confirmHistoricalImport() {
+        const url = document.getElementById('historical-url').value.trim();
+        const dataType = document.getElementById('data-type').value;
+        const useSampleData = document.getElementById('sample-data').checked;
+        
+        if (!url) {
+            alert('Please enter a URL to import from.');
+            return;
+        }
+        
+        const statusDiv = document.getElementById('import-status');
+        statusDiv.style.display = 'block';
+        statusDiv.className = 'import-status loading';
+        statusDiv.innerHTML = '🔄 Importing historical data...';
+        
+        try {
+            let result;
+            
+            if (dataType === 'jewish-population' || url.includes('iijg.org')) {
+                result = await this.historicalImporter.importJewishPopulationData(url);
+            } else {
+                result = await this.historicalImporter.importFromImageMapper(url, {
+                    dataType: dataType === 'auto' ? null : dataType
+                });
+            }
+            
+            if (result.type === 'manual-import-required') {
+                this.showManualImportInstructions(result);
+                return;
+            }
+            
+            if (result.features && result.features.length > 0) {
+                // Successfully imported data
+                this.processHistoricalData(result);
+                
+                statusDiv.className = 'import-status success';
+                statusDiv.innerHTML = `✅ Successfully imported ${result.features.length} features!`;
+                
+                setTimeout(() => {
+                    this.hideModal('historical-modal');
+                    this.clearModalInputs('historical-modal');
+                }, 2000);
+                
+            } else if (useSampleData && (dataType === 'jewish-population' || url.includes('iijg.org'))) {
+                // Load sample data
+                const sampleData = this.historicalImporter.createSampleJewishPopulationData();
+                this.processHistoricalData(sampleData);
+                
+                statusDiv.className = 'import-status warning';
+                statusDiv.innerHTML = '⚠️ Loaded sample Jewish population data (direct import failed due to CORS)';
+                
+                setTimeout(() => {
+                    this.hideModal('historical-modal');
+                    this.clearModalInputs('historical-modal');
+                }, 3000);
+                
+            } else {
+                throw new Error('No data could be imported from the specified URL');
+            }
+            
+        } catch (error) {
+            console.error('Historical import failed:', error);
+            
+            statusDiv.className = 'import-status error';
+            statusDiv.innerHTML = `❌ Import failed: ${error.message}`;
+            
+            if (useSampleData && (dataType === 'jewish-population' || url.includes('iijg.org'))) {
+                // Fallback to sample data
+                setTimeout(() => {
+                    const sampleData = this.historicalImporter.createSampleJewishPopulationData();
+                    this.processHistoricalData(sampleData);
+                    
+                    statusDiv.className = 'import-status warning';
+                    statusDiv.innerHTML = '⚠️ Loaded sample Jewish population data (import failed)';
+                    
+                    setTimeout(() => {
+                        this.hideModal('historical-modal');
+                        this.clearModalInputs('historical-modal');
+                    }, 2000);
+                }, 1000);
+            }
+        }
+    }
+    
+    /**
+     * Cancel historical import
+     */
+    cancelHistoricalImport() {
+        this.hideModal('historical-modal');
+        this.clearModalInputs('historical-modal');
+        
+        const statusDiv = document.getElementById('import-status');
+        statusDiv.style.display = 'none';
+    }
+    
+    /**
+     * Process imported historical data
+     */
+    processHistoricalData(data) {
+        if (data.type === 'FeatureCollection' && data.features) {
+            // Add historical features to GeoJSON data
+            if (!this.geoJsonData) {
+                this.geoJsonData = {
+                    type: 'FeatureCollection',
+                    features: []
+                };
+            }
+            
+            // Add metadata to features
+            data.features.forEach(feature => {
+                feature.properties = feature.properties || {};
+                feature.properties.imported = true;
+                feature.properties.importDate = new Date().toISOString();
+                feature.properties.historical = true;
+                
+                // Add to GeoJSON data
+                this.geoJsonData.features.push(feature);
+            });
+            
+            // Update storage and render
+            this.saveData();
+            this.render();
+            
+            // Update status
+            const metadata = data.metadata || {};
+            const title = metadata.title || 'Historical Data';
+            this.updateStatus(`Imported: ${title} (${data.features.length} features)`);
+            
+        } else {
+            throw new Error('Invalid data format received');
+        }
+    }
+    
+    /**
+     * Show manual import instructions
+     */
+    showManualImportInstructions(result) {
+        const statusDiv = document.getElementById('import-status');
+        statusDiv.className = 'import-status warning';
+        
+        const instructions = result.instructions;
+        let html = `<strong>${instructions.title}</strong><br>`;
+        html += `${instructions.message}<br><br>`;
+        html += '<strong>Steps:</strong><br>';
+        
+        instructions.steps.forEach(step => {
+            html += `${step}<br>`;
+        });
+        
+        html += `<br><strong>Source:</strong> <a href="${instructions.sourceUrl}" target="_blank">Open in new tab</a>`;
+        
+        statusDiv.innerHTML = html;
+    }
+
     /**
      * Export data as JSON
      */

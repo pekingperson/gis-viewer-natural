@@ -342,6 +342,73 @@ body {
     margin-bottom: 0.5rem;
 }
 
+/* Import Status */
+.import-status {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.import-status.loading {
+    background: #e3f2fd;
+    color: #1976d2;
+    border: 1px solid #bbdefb;
+}
+
+.import-status.success {
+    background: #e8f5e8;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+.import-status.error {
+    background: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+}
+
+.import-status.warning {
+    background: #fff8e1;
+    color: #f57c00;
+    border: 1px solid #ffecb3;
+}
+
+/* Historical data styling */
+.historical-feature {
+    border: 2px solid #8e24aa;
+    background: rgba(142, 36, 170, 0.1);
+}
+
+.population-marker {
+    background: linear-gradient(45deg, #8e24aa, #ab47bc);
+    color: white;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* Select styling */
+.modal-content select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 2px solid #dee2e6;
+    border-radius: 4px;
+    font-size: 1rem;
+    background: white;
+}
+
+.modal-content select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* Checkbox styling in modals */
+.modal-content input[type="checkbox"] {
+    margin-right: 0.5rem;
+    transform: scale(1.1);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .header {

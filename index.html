@@ -56,6 +56,7 @@
                     🗺️ Load GeoJSON
                     <input type="file" id="geojson-upload" accept=".json,.geojson" style="display: none;">
                 </label>
+                <button id="import-historical" class="btn secondary">📜 Import Historical Data</button>
                 <button id="export-data" class="btn secondary">💾 Export Data</button>
             </div>
 
@@ -115,7 +116,44 @@
             </div>
         </div>
 
-        <!-- Annotation Modal -->
+        <!-- Historical Data Import Modal -->
+        <div id="historical-modal" class="modal">
+            <div class="modal-content">
+                <h3>Import Historical Map Data</h3>
+                <p>Import data from historical map websites and ImageMapper services:</p>
+                
+                <div class="input-group">
+                    <label for="historical-url">Website URL:</label>
+                    <input type="url" id="historical-url" placeholder="https://example.com/historical-map" 
+                           value="https://www.iijg.org/wp-content/uploads/maps/Map-1900-1930-2/WEB-1900-1930/INDEX.HTML">
+                </div>
+                
+                <div class="input-group">
+                    <label for="data-type">Data Type:</label>
+                    <select id="data-type">
+                        <option value="auto">Auto-detect</option>
+                        <option value="jewish-population">Jewish Population Data</option>
+                        <option value="population">General Population Data</option>
+                        <option value="historical">Historical Data</option>
+                        <option value="imagemapper">ImageMapper Website</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label>
+                        <input type="checkbox" id="sample-data" checked>
+                        Load sample Jewish population data (1900-1930) if import fails
+                    </label>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button id="confirm-historical" class="btn primary">Import Data</button>
+                    <button id="cancel-historical" class="btn secondary">Cancel</button>
+                </div>
+                
+                <div id="import-status" class="import-status" style="display: none;"></div>
+            </div>
+        </div>
         <div id="annotation-modal" class="modal">
             <div class="modal-content">
                 <h3>Add Annotation</h3>
@@ -157,6 +195,8 @@
                     <h4>Features:</h4>
                     <ul>
                         <li>Import GeoJSON files for overlays</li>
+                        <li>Import historical data from ImageMapper websites</li>
+                        <li>Special support for Jewish population data (1900-1930)</li>
                         <li>Toggle coordinate grid display</li>
                         <li>Export annotations and data as JSON</li>
                         <li>Persistent storage (data saved automatically)</li>
@@ -166,6 +206,7 @@
         </div>
     </div>
 
+    <script src="historical-importer.js"></script>
     <script src="gis-viewer.js"></script>
     
     <!-- PWA Installation and Service Worker -->
