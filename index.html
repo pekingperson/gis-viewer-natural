@@ -36,7 +36,7 @@
             <!-- File Upload Section -->
             <div class="control-group">
                 <label for="map-upload" class="upload-btn">
-                    📁 Load Map Image
+                    Load Map Image
                     <input type="file" id="map-upload" accept=".jpg,.jpeg,.png" style="display: none;">
                 </label>
                 <span id="file-name" class="file-name"></span>
@@ -44,20 +44,20 @@
 
             <!-- Tool Selection -->
             <div class="control-group">
-                <button id="pan-tool" class="tool-btn active">🤚 Pan</button>
-                <button id="calibrate-tool" class="tool-btn">📍 Calibrate</button>
-                <button id="annotate-tool" class="tool-btn">📌 Annotate</button>
-                <button id="measure-tool" class="tool-btn">📏 Measure</button>
+                <button id="pan-tool" class="tool-btn active">Pan</button>
+                <button id="calibrate-tool" class="tool-btn">Calibrate</button>
+                <button id="annotate-tool" class="tool-btn">Annotate</button>
+                <button id="measure-tool" class="tool-btn">Measure</button>
             </div>
 
             <!-- Import/Export Section -->
             <div class="control-group">
                 <label for="geojson-upload" class="upload-btn secondary">
-                    🗺️ Load GeoJSON
+                    Load GeoJSON
                     <input type="file" id="geojson-upload" accept=".json,.geojson" style="display: none;">
                 </label>
-                <button id="import-historical" class="btn secondary">📜 Import Historical Data</button>
-                <button id="export-data" class="btn secondary">💾 Export Data</button>
+                <button id="import-historical" class="btn secondary">Import Historical Data</button>
+                <button id="export-data" class="btn secondary">Export Data</button>
             </div>
 
             <!-- View Options -->
@@ -76,8 +76,8 @@
 
             <!-- Data Management -->
             <div class="control-group">
-                <button id="clear-data" class="btn danger">🗑️ Clear All</button>
-                <button id="reset-calibration" class="btn warning">↻ Reset Calibration</button>
+                <button id="clear-data" class="btn danger">Clear All</button>
+                <button id="reset-calibration" class="btn warning">Reset Calibration</button>
             </div>
         </div>
 
@@ -132,19 +132,14 @@
                     <label for="data-type">Data Type:</label>
                     <select id="data-type">
                         <option value="auto">Auto-detect</option>
-                        <option value="jewish-population">Jewish Population Data</option>
+                        <!-- Removed Jewish Population Data option -->
                         <option value="population">General Population Data</option>
                         <option value="historical">Historical Data</option>
                         <option value="imagemapper">ImageMapper Website</option>
                     </select>
                 </div>
                 
-                <div class="input-group">
-                    <label>
-                        <input type="checkbox" id="sample-data" checked>
-                        Load sample Jewish population data (1900-1930) if import fails
-                    </label>
-                </div>
+                <!-- Removed sample Jewish population data checkbox -->
                 
                 <div class="modal-buttons">
                     <button id="confirm-historical" class="btn primary">Import Data</button>
@@ -175,31 +170,30 @@
         <!-- Help Section -->
         <div class="help-section">
             <details>
-                <summary>📚 How to Use</summary>
+                <summary>How to Use</summary>
                 <div class="help-content">
-                    <h4>Getting Started:</h4>
+                    <h4>Getting Started</h4>
                     <ol>
-                        <li><strong>Load Map:</strong> Click "Load Map Image" to upload a JPEG or PNG map file</li>
-                        <li><strong>Calibrate:</strong> Click "Calibrate" tool and set at least 2 reference points with known coordinates</li>
-                        <li><strong>Navigate:</strong> Use mouse wheel to zoom, drag to pan</li>
+                        <li><strong>Load Map:</strong> Click "Load Map Image" to upload a JPEG or PNG map file.</li>
+                        <li><strong>Calibrate:</strong> Use the "Calibrate" tool and set at least 2 reference points with known coordinates.</li>
+                        <li><strong>Navigate:</strong> Use mouse wheel to zoom, drag to pan.</li>
                     </ol>
                     
-                    <h4>Tools:</h4>
+                    <h4>Tools</h4>
                     <ul>
-                        <li><strong>Pan:</strong> Default mode for navigation</li>
-                        <li><strong>Calibrate:</strong> Set reference points for coordinate mapping</li>
-                        <li><strong>Annotate:</strong> Add labeled points to the map</li>
-                        <li><strong>Measure:</strong> Click two points to measure distance</li>
+                        <li><strong>Pan:</strong> Default mode for navigation.</li>
+                        <li><strong>Calibrate:</strong> Set reference points for coordinate mapping.</li>
+                        <li><strong>Annotate:</strong> Add labeled points to the map.</li>
+                        <li><strong>Measure:</strong> Click two points to measure distance.</li>
                     </ul>
                     
-                    <h4>Features:</h4>
+                    <h4>Features</h4>
                     <ul>
-                        <li>Import GeoJSON files for overlays</li>
-                        <li>Import historical data from ImageMapper websites</li>
-                        <li>Special support for Jewish population data (1900-1930)</li>
-                        <li>Toggle coordinate grid display</li>
-                        <li>Export annotations and data as JSON</li>
-                        <li>Persistent storage (data saved automatically)</li>
+                        <li>Import GeoJSON files for overlays.</li>
+                        <li>Import historical data from ImageMapper websites.</li>
+                        <li>Toggle coordinate grid display.</li>
+                        <li>Export annotations and data as JSON.</li>
+                        <li>Persistent storage (data saved automatically).</li>
                     </ul>
                 </div>
             </details>
@@ -227,7 +221,7 @@
         // PWA Install Prompt
         let deferredPrompt;
         const installButton = document.createElement('button');
-        installButton.textContent = '📱 Install App';
+    installButton.textContent = 'Install App';
         installButton.className = 'btn primary';
         installButton.style.display = 'none';
         installButton.id = 'install-button';

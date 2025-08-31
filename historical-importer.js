@@ -238,6 +238,8 @@ class HistoricalMapImporter {
      * Generate manual import instructions when automatic fails
      */
     generateManualImportInstructions(url, options) {
+        const isJewishPopulationSite = url.includes('iijg.org') || url.includes('jewish');
+        
         return {
             type: 'manual-import-required',
             source: url,
@@ -257,7 +259,15 @@ class HistoricalMapImporter {
                     'DATA.JS - Geographic data',
                     'AREAS.JS - Area definitions',
                     'POPUPS.JS - Info content'
-                ]
+                ],
+                // Enhanced sample data option
+                hasSampleData: isJewishPopulationSite,
+                sampleDataInfo: isJewishPopulationSite ? {
+                    title: 'Jewish Population Sample Data (1900-1930)',
+                    description: 'Load sample data showing Jewish population in major European cities',
+                    buttonText: '📊 Load Sample Jewish Population Data',
+                    dataCount: '15+ cities with historical population data'
+                } : null
             }
         };
     }
@@ -523,6 +533,156 @@ class HistoricalMapImporter {
                     geometry: {
                         type: 'Point',
                         coordinates: [19.4514, 51.7592]
+                    }
+                },
+                {
+                    type: 'Feature',
+                    properties: {
+                        name: 'Prague',
+                        country: 'Czechoslovakia',
+                        population_1900: 25000,
+                        population_1930: 35000,
+                        category: 'jewish-population',
+                        historical: true
+                    },
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [14.4378, 50.0755]
+                    }
+                },
+                {
+                    type: 'Feature',
+                    properties: {
+                        name: 'Kraków',
+                        country: 'Poland',
+                        population_1900: 25000,
+                        population_1930: 56000,
+                        category: 'jewish-population',
+                        historical: true
+                    },
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [19.9450, 50.0647]
+                    }
+                },
+                {
+                    type: 'Feature',
+                    properties: {
+                        name: 'Lviv',
+                        country: 'Poland',
+                        population_1900: 44000,
+                        population_1930: 98000,
+                        category: 'jewish-population',
+                        historical: true
+                    },
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [24.0232, 49.8383]
+                    }
+                },
+                {
+                    type: 'Feature',
+                    properties: {
+                        name: 'Bucharest',
+                        country: 'Romania',
+                        population_1900: 40000,
+                        population_1930: 74000,
+                        category: 'jewish-population',
+                        historical: true
+                    },
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [26.1025, 44.4268]
+                    }
+                },
+                {
+                    type: 'Feature',
+                    properties: {
+                        name: 'Amsterdam',
+                        country: 'Netherlands',
+                        population_1900: 51000,
+                        population_1930: 60000,
+                        category: 'jewish-population',
+                        historical: true
+                    },
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [4.9041, 52.3676]
+                    }
+                },
+                {
+                    type: 'Feature',
+                    properties: {
+                        name: 'Frankfurt',
+                        country: 'Germany',
+                        population_1900: 21000,
+                        population_1930: 26000,
+                        category: 'jewish-population',
+                        historical: true
+                    },
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [8.6821, 50.1109]
+                    }
+                },
+                {
+                    type: 'Feature',
+                    properties: {
+                        name: 'Hamburg',
+                        country: 'Germany',
+                        population_1900: 17000,
+                        population_1930: 16000,
+                        category: 'jewish-population',
+                        historical: true
+                    },
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [9.9937, 53.5511]
+                    }
+                },
+                {
+                    type: 'Feature',
+                    properties: {
+                        name: 'Vilnius',
+                        country: 'Lithuania',
+                        population_1900: 63000,
+                        population_1930: 55000,
+                        category: 'jewish-population',
+                        historical: true
+                    },
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [25.2797, 54.6872]
+                    }
+                },
+                {
+                    type: 'Feature',
+                    properties: {
+                        name: 'Thessaloniki',
+                        country: 'Greece',
+                        population_1900: 62000,
+                        population_1930: 56000,
+                        category: 'jewish-population',
+                        historical: true
+                    },
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [22.9444, 40.6401]
+                    }
+                },
+                {
+                    type: 'Feature',
+                    properties: {
+                        name: 'Odessa',
+                        country: 'USSR',
+                        population_1900: 138000,
+                        population_1930: 154000,
+                        category: 'jewish-population',
+                        historical: true
+                    },
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [30.7233, 46.4775]
                     }
                 }
             ]

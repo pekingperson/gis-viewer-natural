@@ -1,63 +1,53 @@
-# Historical Data Integration - Jewish Population Example
 
-## 🗺️ What's Been Added
+# Historical Data Integration Guide
 
-Your GIS Viewer now includes powerful historical data integration capabilities, specifically designed to work with sites like the Jewish Population map from the International Institute for Jewish Genealogy.
+## Overview
 
-### New Features:
+This GIS Viewer includes historical data import capabilities for sites using ImageMapper and similar formats. You can import population, annotation, or other historical datasets from compatible web sources.
 
-1. **📜 Historical Data Importer**
-   - Automatically detects and imports data from ImageMapper websites
-   - Special support for Jewish population data (1900-1930)
-   - Handles CORS restrictions gracefully with fallback options
+### Features
 
-2. **🎨 Enhanced Visualization**
-   - Population markers scaled by size
-   - Dual-ring display (1900 vs 1930 populations)
-   - City names and population numbers
+1. Historical Data Importer
+   - Detects and imports data from ImageMapper-style websites
+   - Handles CORS restrictions with fallback options
+
+2. Enhanced Visualization
+   - Markers scaled by value
+   - Dual-ring display for temporal comparisons
+   - City names and data values
    - Color-coded historical data
 
-3. **📊 Rich Tooltips**
-   - Population changes over time
+3. Rich Tooltips
+   - Shows changes over time
    - Percentage growth/decline
    - Historical context information
 
-## 🎯 How to Use
+## How to Use
 
 ### Step 1: Import Historical Data
-1. Click **"📜 Import Historical Data"** button
-2. The URL for Jewish population data is pre-filled: 
-   ```
-   https://www.iijg.org/wp-content/uploads/maps/Map-1900-1930-2/WEB-1900-1930/INDEX.HTML
-   ```
-3. Select **"Jewish Population Data"** as the data type
-4. Click **"Import Data"**
+1. Click "Import Historical Data" button
+2. Enter the URL for a compatible historical map website
+3. Select the appropriate data type
+4. Click "Import Data"
 
-### Step 2: Load a Compatible Map
-For best results, use a historical map of Europe from 1900-1930 period. You can:
-- Use any European map image (JPEG/PNG)
-- Download historical maps from sources like:
+### Step 2: Load a Map
+You can use any map image (JPEG/PNG) as a background. Download historical maps from sources like:
   - Library of Congress
   - David Rumsey Map Collection
   - National archives
 
 ### Step 3: Calibrate the Map
-1. Use the **Calibrate tool** to set reference points
-2. Suggested calibration points for European maps:
-   - **Berlin**: 52.5200, 13.4050
-   - **Paris**: 48.8566, 2.3522
-   - **Vienna**: 48.2082, 16.3738
-   - **Warsaw**: 52.2297, 21.0122
+1. Use the Calibrate tool to set reference points
+2. Suggested calibration points for your region
 
 ### Step 4: Explore the Data
-- Hover over population markers to see detailed information
-- Purple markers show Jewish population data
-- Larger markers = larger populations
-- Inner/outer rings show population changes
+- Hover over markers to see details
+- Larger markers represent higher values
+- Inner/outer rings show changes over time
 
-## 📊 Sample Data Included
+## Sample Data
 
-If the direct import fails (due to CORS restrictions), the system automatically loads sample data for major Jewish communities:
+If direct import fails (due to CORS restrictions), the system can load sample data for demonstration purposes.
 
 | City | Country | 1900 Population | 1930 Population | Change |
 |------|---------|----------------|------------------|--------|

@@ -5,62 +5,61 @@ A comprehensive web-based GIS (Geographic Information System) viewer that allows
 
 ## 🌟 Features
 
-### 📁 Map Image Loading
-- **Supported Formats**: JPEG, JPG, PNG
-- **Drag & Drop Interface**: User-friendly file upload
-- **Responsive Display**: Automatic fitting and scaling
-- **High-DPI Support**: Retina display optimization
 
-### 🗺️ Interactive Navigation
-- **Zoom Control**: Mouse wheel zooming with cursor-centered scaling
-- **Pan Control**: Click and drag navigation
-- **Smooth Interactions**: Optimized for responsive user experience
-- **Zoom Limits**: Configurable min/max zoom levels (0.1x to 10x)
+## Features
 
-### 📍 Coordinate System Calibration
-- **Reference Points**: Set multiple known geographic points
-- **Affine Transformation**: Mathematical coordinate mapping
-- **Real-time Updates**: Live coordinate display during mouse movement
-- **Accuracy**: Supports both 2-point and multi-point calibration
+### Map Image Loading
+- Supported formats: JPEG, JPG, PNG
+- Drag & drop or file picker upload
+- Responsive display and scaling
+- High-DPI support
 
-### 📌 Interactive Annotations
-- **Point Markers**: Click to add labeled points
-- **Metadata Support**: Labels and descriptions
-- **Geographic Coordinates**: Automatic lat/lng calculation when calibrated
-- **Visual Styling**: Distinctive markers with hover tooltips
-- **Persistent Storage**: Automatic saving to localStorage
+### Interactive Navigation
+- Zoom with mouse wheel (centered on cursor)
+- Pan by dragging
+- Smooth, responsive interactions
+- Configurable zoom limits
 
-### 📏 Distance Measurement
-- **Two-Point Measurement**: Click two points to measure distance
-- **Geographic Accuracy**: Uses Haversine formula for calibrated maps
-- **Multiple Units**: Automatic unit selection (meters/kilometers)
-- **Visual Feedback**: Dashed lines between measurement points
+### Coordinate System Calibration
+- Set multiple reference points with known coordinates
+- Affine transformation for coordinate mapping
+- Live coordinate display
+- Supports both 2-point and multi-point calibration
 
-### 🗺️ GeoJSON Support
-- **File Import**: Load external GeoJSON files
-- **Feature Types**: Points, LineStrings, Polygons, Multi-geometries
-- **Styling Support**: Colors, weights, transparency
-- **Coordinate Mapping**: Automatic projection to calibrated coordinate system
-- **Feature Information**: Hover tooltips with properties
+### Interactive Annotations
+- Add labeled points to the map
+- Metadata: labels and descriptions
+- Automatic geographic coordinates when calibrated
+- Hover tooltips
+- Persistent storage in localStorage
 
-### 📊 Grid Overlay
-- **Coordinate Grid**: Lat/lng grid lines
-- **Dynamic Spacing**: Zoom-dependent grid resolution
-- **Toggle Control**: Easy on/off switching
-- **Visual Clarity**: Subtle styling that doesn't interfere with map data
+### Distance Measurement
+- Click two points to measure distance
+- Geographic accuracy using Haversine formula
+- Automatic units (meters/kilometers)
+- Dashed lines for visual feedback
 
-### 💾 Data Persistence
-- **Automatic Saving**: localStorage integration
-- **Session Recovery**: Restore work between browser sessions
-- **Export Functionality**: JSON export of all annotations and measurements
-- **Data Management**: Clear and reset options
+### GeoJSON Support
+- Import external GeoJSON files
+- Supports points, lines, polygons, multi-geometries
+- Customizable styling
+- Automatic projection to calibrated coordinates
+- Hover tooltips for feature info
 
-### 📱 Responsive Design
-- **Mobile Friendly**: Touch-optimized controls
-- **Tablet Support**: Optimized for larger touch screens
-- **Desktop Enhanced**: Full mouse and keyboard support
-- **Flexible Layout**: Adapts to various screen sizes
+### Grid Overlay
+- Lat/lng grid lines
+- Dynamic spacing based on zoom
+- Toggle grid on/off
+- Subtle styling for clarity
 
+### Data Persistence
+- Automatic saving to localStorage
+- Restore work between sessions
+- Export all annotations and measurements as JSON
+- Clear/reset options
+
+### Responsive Design
+- Mobile and tablet friendly
 ## 🚀 Getting Started
 
 ### Quick Start

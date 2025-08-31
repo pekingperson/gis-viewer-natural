@@ -9,8 +9,8 @@
    - **Repository name**: `gis-viewer` (or any name you prefer)
    - **Description**: "Interactive web-based GIS viewer with coordinate system support"
    - **Visibility**: Public (recommended) or Private
-   - **❌ DO NOT** check "Add a README file" (we already have one)
-   - **❌ DO NOT** add .gitignore or license (we already have these)
+   - Do not check "Add a README file" (there is already one in the project)
+   - Do not add .gitignore or license (these are included)
 5. Click **"Create repository"**
 
 ## Step 2: Copy Repository URL
@@ -56,39 +56,44 @@ To host your GIS Viewer for free on GitHub:
 4. Under "Source", select **"Deploy from a branch"**
 5. Choose **"main"** branch (or "master") and **"/ (root)"**
 6. Click **"Save"**
-7. Your site will be available at: `https://YOUR_USERNAME.github.io/gis-viewer`
+7. Your site will be available at: `https://haijunsu-osu.github.io/gis-viewer`
 
 ## Current Project Files
 
-✅ **index.html** - Main GIS Viewer application
-✅ **gis-viewer.js** - Core JavaScript functionality  
-✅ **styles.css** - Complete responsive styling
-✅ **README.md** - Comprehensive documentation
-✅ **demo.html** - Feature demonstration page
-✅ **sample-data.geojson** - Test GeoJSON data
-✅ **package.json** - Project configuration
-✅ **.gitignore** - Git ignore rules
+
+Project files:
+- index.html - Main GIS Viewer application
+- gis-viewer.js - Core JavaScript functionality
+- styles.css - Responsive styling
+- README.md - Documentation
+- demo.html - Feature demonstration page
+- sample-data.geojson - Test GeoJSON data
+- package.json - Project configuration
+- .gitignore - Git ignore rules
 
 ## Repository Description Suggestions
 
-Use this description when creating your GitHub repository:
 
-> Interactive web-based GIS viewer for loading map images, calibrating coordinate systems, adding annotations, measuring distances, and overlaying GeoJSON data. Built with vanilla HTML5, CSS3, and JavaScript for maximum browser compatibility.
+Suggested repository description:
+
+Web-based GIS viewer for loading map images, calibrating coordinates, adding annotations, measuring distances, and overlaying GeoJSON data. Built with HTML5, CSS3, and JavaScript for modern browsers.
 
 ## Tags/Topics to Add
 
-Add these topics to your GitHub repository for better discoverability:
-- `gis`
-- `mapping`
-- `geospatial`
-- `javascript`
-- `canvas`
-- `coordinates`
-- `geojson`
-- `web-gis`
-- `cartography`
-- `visualization`
+
+Recommended topics/tags for your repository:
+- gis
+- mapping
+- geospatial
+- javascript
+- canvas
+- coordinates
+- geojson
+- web-gis
+- cartography
+- visualization
 
 ---
 
-**Note**: Replace `YOUR_USERNAME` with your actual GitHub username in all URLs and commands above.
+
+Note: Replace YOUR_USERNAME with your actual GitHub username in all URLs and commands above.

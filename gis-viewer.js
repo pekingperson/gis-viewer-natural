@@ -1554,6 +1554,18 @@ class GISViewer {
         
         html += `<br><strong>Source:</strong> <a href="${instructions.sourceUrl}" target="_blank">Open in new tab</a>`;
         
+        // Add sample data option if available
+        if (instructions.hasSampleData && instructions.sampleDataInfo) {
+            const sampleInfo = instructions.sampleDataInfo;
+            html += `<br><br><div style="background: #f0f8ff; padding: 10px; border-radius: 5px; border-left: 4px solid #4CAF50;">`;
+            html += `<strong>Alternative: ${sampleInfo.title}</strong><br>`;
+            html += `${sampleInfo.description}<br>`;
+            html += `<small>Includes: ${sampleInfo.dataCount}</small><br><br>`;
+            html += `<button onclick="window.gisViewer.loadSampleJewishData()" style="background: #4CAF50; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">`;
+            html += `${sampleInfo.buttonText}`;
+            html += `</button></div>`;
+        }
+        
         statusDiv.innerHTML = html;
     }
 
@@ -1584,6 +1596,31 @@ class GISViewer {
         
         URL.revokeObjectURL(url);
         this.updateStatus('Data exported successfully');
+    }
+    
+    /**
+     * Load sample Jewish population data directly
+     */
+    loadSampleJewishData() {
+        try {
+            const sampleData = this.historicalImporter.createSampleJewishPopulationData();
+            this.processHistoricalData(sampleData);
+            
+            const statusDiv = document.getElementById('import-status');
+            statusDiv.className = 'import-status success';
+            statusDiv.innerHTML = `✅ Successfully loaded sample Jewish population data!<br><small>Showing ${sampleData.features.length} major European cities (1900-1930)</small>`;
+            
+            // Close modal after short delay
+            setTimeout(() => {
+                this.hideModal('historical-modal');
+                this.clearModalInputs('historical-modal');
+            }, 2000);
+            
+        } catch (error) {
+            const statusDiv = document.getElementById('import-status');
+            statusDiv.className = 'import-status error';
+            statusDiv.innerHTML = `❌ Failed to load sample data: ${error.message}`;
+        }
     }
     
     /**
