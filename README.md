@@ -3,7 +3,7 @@
 
 A comprehensive web-based GIS (Geographic Information System) viewer that allows users to load map images, calibrate coordinate systems, add annotations, measure distances, and overlay GeoJSON data. Built with vanilla JavaScript and HTML5 Canvas for maximum compatibility and performance.
 
-## 🌟 Features
+## Features
 
 
 ## Features
@@ -60,7 +60,7 @@ A comprehensive web-based GIS (Geographic Information System) viewer that allows
 
 ### Responsive Design
 - Mobile and tablet friendly
-## 🚀 Getting Started
+## Getting Started
 
 ### Quick Start
 1. Open `index.html` in a modern web browser
@@ -77,27 +77,27 @@ A comprehensive web-based GIS (Geographic Information System) viewer that allows
 
 ### Tool Usage
 
-#### 🤚 Pan Tool (Default)
+#### Pan Tool (Default)
 - **Mouse**: Click and drag to pan
 - **Wheel**: Scroll to zoom in/out
 - **Purpose**: Navigate around the map
 
-#### 📍 Calibrate Tool
+#### Calibrate Tool
 - **Click**: Select reference points
 - **Input**: Enter known lat/lng coordinates
 - **Purpose**: Establish geographic coordinate system
 
-#### 📌 Annotate Tool
+#### Annotate Tool
 - **Click**: Add annotation points
 - **Input**: Enter label and optional description
 - **Purpose**: Mark important locations
 
-#### 📏 Measure Tool
+#### Measure Tool
 - **Click**: Select two points to measure
 - **Result**: Distance displayed in appropriate units
 - **Purpose**: Calculate distances between locations
 
-## 🛠️ Technical Implementation
+## Technical Implementation
 
 ### Architecture
 - **Frontend**: Pure HTML5, CSS3, JavaScript (ES6+)
@@ -162,7 +162,7 @@ const distance = R * c;
 }
 ```
 
-## 📋 Browser Compatibility
+## Browser Compatibility
 
 ### Minimum Requirements
 - **Chrome**: 60+
@@ -177,7 +177,7 @@ const distance = R * c;
 - File API for uploads
 - CSS Grid and Flexbox
 
-## 🎯 Use Cases
+## Use Cases
 
 ### Geographic Analysis
 - **Survey Data**: Overlay field survey points
@@ -197,7 +197,7 @@ const distance = R * c;
 - **Construction**: Project site mapping
 - **Emergency**: Incident response mapping
 
-## ⚠️ Limitations
+## Limitations
 
 ### Projection Support
 - **Simple Transformations**: Affine transformation only
@@ -214,7 +214,7 @@ const distance = R * c;
 - **Linear Transformation**: May not account for map distortions
 - **Scale Variations**: Best accuracy near reference points
 
-## 🔧 Customization
+## Customization
 
 ### Styling
 The application uses CSS custom properties for easy theming:
@@ -239,7 +239,7 @@ this.viewport = {
 };
 ```
 
-## 📚 API Reference
+## API Reference
 
 ### Main Class: GISViewer
 
@@ -257,7 +257,7 @@ this.viewport = {
 - Coordinate transformation
 - Data persistence
 
-## 🤝 Contributing
+## Contributing
 
 ### Development Setup
 1. Clone or download the project files
@@ -270,11 +270,11 @@ this.viewport = {
 - `styles.css`: All styling and responsive design
 - `gis-viewer.js`: Core application logic and GIS functionality
 
-## 📄 License
+## License
 
 This project is open source and available under the MIT License. Feel free to use, modify, and distribute according to your needs.
 
-## 🆘 Support
+## Support
 
 ### Common Issues
 
@@ -300,4 +300,4 @@ A: Consider resizing very large images before upload, or use progressive loading
 
 ---
 
-*Built with ❤️ for the GIS and mapping community*
+*Built for the GIS and mapping community*
