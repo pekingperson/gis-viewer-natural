@@ -419,7 +419,7 @@ class HistoricalMapImporter {
     }
 
     /**
-     * Import Jewish population data specifically
+     * Import population data specifically
      */
     async importJewishPopulationData(url) {
         try {
@@ -429,26 +429,26 @@ class HistoricalMapImporter {
                 timeframe: '1900-1930'
             });
             
-            // Add specific processing for Jewish population data
+            // Add specific processing for population data
             if (result.features) {
                 result.features.forEach(feature => {
-                    feature.properties.category = 'jewish-population';
+                    feature.properties.category = 'population';
                     feature.properties.historical = true;
                     feature.properties.timeframe = '1900-1930';
-                    feature.properties.source = 'International Institute for Jewish Genealogy';
+                    feature.properties.source = 'International Institute for Genealogy';
                 });
             }
             
             return result;
             
         } catch (error) {
-            // Return sample data structure for Jewish population data
+            // Return sample data structure for population data
             return this.createSampleJewishPopulationData();
         }
     }
 
     /**
-     * Create sample Jewish population data for demonstration
+     * Create sample population data for demonstration
      */
     createSampleJewishPopulationData() {
         return {
